@@ -1,294 +1,121 @@
 homeassistant:
-  name: Hem
+  name: Home
   latitude: !secret homeassistant_latitude
   longitude: !secret homeassistant_longitude
   elevation: !secret homeassistant_elevation
   unit_system: metric
-  time_zone: Europe/Stockholm
+  time_zone: Europe/Amsterdam
+  internal_url: http://home-assistant.local:80
   packages: !include_dir_named include
-  allowlist_external_dirs: [/config/]
 
-#default_config:
 history:
 mobile_app:
 sun:
 system_health:
-
-#config flow
-#hue, pyatv, broadlink, mqtt, ps4, braviatv, IPP
+recorder:
 
 lovelace:
   mode: yaml
   resources:
-    [ {url: /hacsfiles/bar-card/bar-card.js,                                     type: module},
-      {url: /hacsfiles/button-card/button-card.js,                               type: module},
-      {url: /hacsfiles/light-entity-card/light-entity-card.js,                   type: js},
-      {url: /hacsfiles/light-popup-card/light-popup-card.js,                     type: module},
-      {url: /hacsfiles/lovelace-card-mod/card-mod.js,                            type: module},
-      {url: /hacsfiles/lovelace-card-preloader/lovelace-card-preloader.js,       type: module},
-      {url: /hacsfiles/lovelace-hui-element/hui-element.js,                      type: module},
-      {url: /hacsfiles/lovelace-layout-card/layout-card.js,                      type: module},
-      {url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js,          type: module},
-      {url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js,                type: module},
-      {url: /hacsfiles/mini-media-player/mini-media-player-bundle.js,            type: module},
-      {url: /hacsfiles/stack-in-card/stack-in-card.js,                           type: module},
-      {url: /hacsfiles/swipe-card/swipe-card.js,                                 type: module},
+    - url: /hacsfiles/bar-card/bar-card.js
+      type: module
 
-      {url: '/local/calendar-card.js?v=31091',                                   type: module},
-      {url: '/local/valetudo-map-card.js?v=42dbceb',                             type: js},
-      {url: '/local/custom_icons.js?v=25052001',                                 type: module},
-      {url: '/local/kiosk.js?v=1',                                               type: js},
-      {url: /local/font.css,                                                     type: css} ]
+    - url: /hacsfiles/button-card/button-card.js
+      type: module
 
-logger:
-  default: warning
-  logs:
-    homeassistant.components.homekit.type_media_players: error
-    homeassistant.components.command_line.sensor: error
-    homeassistant.components.rest.sensor: error
-    bravia_tv.braviarc: error
-    homeassistant.components.websocket_api: fatal
-    homeassistant.helpers.service: error
-    homeassistant.components.media_player: error
-    homeassistant.helpers.entity: error
-    homeassistant.helpers.event: fatal
+    - url: /hacsfiles/kiosk-mode/kiosk-mode.js
+      type: module
 
-recorder:
-  purge_keep_days: 2
-  include:
-    entities:
-      ['person.mattias', 'person.sanja','sensor.synology_network_up', 'sensor.aktuellt_spotpris', 
-      'sensor.synology_network_down', 'sensor.hall_temperature']
+    - url: /hacsfiles/light-entity-card/light-entity-card.js
+      type: js
+
+    - url: /hacsfiles/light-popup-card/light-popup-card.js
+      type: module
+
+    - url: /hacsfiles/lovelace-card-mod/card-mod.js
+      type: module
+
+    - url: /hacsfiles/lovelace-card-preloader/lovelace-card-preloader.js
+      type: module
+
+    - url: /hacsfiles/lovelace-hui-element/hui-element.js
+      type: module
+
+    - url: /hacsfiles/lovelace-layout-card/layout-card.js
+      type: module
+
+    - url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js
+      type: module
+
+    - url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
+      type: module
+
+    - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
+      type: module
+
+    - url: /hacsfiles/stack-in-card/stack-in-card.js
+      type: module
+
+    - url: /hacsfiles/swipe-card/swipe-card.js
+      type: module
+
+    - url: /local/calendar-card.js?v=31091
+      type: module
+
+    - url: /local/valetudo-map-card.js?v=42dbceb
+      type: js
+
+    - url: /local/custom_icons.js?v=25052001
+      type: module
+
+    - url: /local/font.css
+      type: css
 
 person:
-  - name: Mattias
-    id: mattias6264b484ba6c360555c9a0547
-    user_id: 1b8e4036264b484ba6c360555c9a0547
+  - name: Bob
+    id: bob_4343cded-1d6d-4b1d-89b3-92a302348d3a
+    user_id: efa2bc58b0f547baa84cc2ddc123cd56
     device_trackers:
-      ['device_tracker.mattias', 'device_tracker.iphone', 'device_tracker.mattias_bluetooth']
+      - device_tracker.bobs_iphone
+      - device_tracker.bobs_phone
+      - device_tracker.bobs_watch
 
-  - name: Sanja
-    id: sanja4543958678435345345345345
+  - name: Kimberly
+    id: kimberly_c2c568e8-a00d-4c54-90af-70859b436cae
     device_trackers:
-      ['device_tracker.sanja', 'device_tracker.sanja_bluetooth']
-
-device_tracker:
-  - platform: iphonedetect
-    consider_home: 120
-    new_device_defaults:
-      track_new_devices: false
-    hosts:
-      Mattias: !secret iphonedetect_mattias
-      Sanja: !secret iphonedetect_sanja
-
-  - platform: bluetooth_tracker
-
-wemo:
-  discovery: false
-  static: !secret wemo_static
-
-cast:
-
-samsungtv:
-  - host: !secret samsungtv_host
+      - device_tracker.kimberly_iphone
+      - device_tracker.kimberly_phone
 
 hacs:
   token: !secret hacs_token
 
-synology_dsm:
-  - host: !secret synologydsm_host
-    port: !secret synologydsm_port
-    ssl: false
-    username: !secret synologydsm_username
-    password: !secret synologydsm_password
-
-google:
-  client_id: !secret google_client_id
-  client_secret: !secret google_client_secret
-
-vacuum:
-  - platform: xiaomi_miio
-    host: !secret roborock_host
-    token: !secret roborock_token
-
-tts:
-  - platform: google_translate
-    language: 'sv'
-    base_url: !secret tts_base_url
-
-mqtt:
-  broker: !secret mqtt_broker
-  discovery: true
-  discovery_prefix: homeassistant
-
-browser_mod:
-  devices:
-    918296e3-e2a54976:
-      name: imac_chrome
-    c2080cea-6627150a:
-      name: tablet
-
-timer:
-  laundry:
-    duration: 01:00:00
-    icon: mdi:washing-machine
-
-shell_command:
-  imac_switchbot_rpi: !secret imac_switchbot_rpi
-  imac_off: !secret imac_off
-  imac_sleep: !secret imac_sleep
-  imac_restart: !secret imac_restart
-  imac_notify_motion_hallway: !secret imac_notify_motion_hallway
-  imac_notify_laundry: !secret imac_notify_laundry
-
-  monitors_volume_slider: !secret monitors_volume_slider
-  monitors_mute_off: !secret monitors_mute_off
-  monitors_mute_on: !secret monitors_mute_on
-
-  fullykiosk_brightness_slider: !secret fullykiosk_brightness_slider
-  fullykiosk_load_start_url: !secret fullykiosk_load_start_url
-  fullykiosk_restart_app: !secret fullykiosk_restart_app
-  fullykiosk_screensaver_on: !secret fullykiosk_screensaver_on
-  fullykiosk_screensaver_off: !secret fullykiosk_screensaver_off
-
-  reference_click: !secret reference_click
-  reference_kill: !secret reference_kill
-  reference_monitors: !secret reference_monitors
-  reference_headphones: !secret reference_headphones
-
-  ha_dockermon_restart_container: !secret ha_dockermon_restart_container
-  clear_logs: truncate -s 0 /config/home-assistant.log
-  kwh_data_update: !secret kwh_data_update
+tradfri:
+  host: !secret tradfri_host
 
 light:
   - platform: group
-    name: Belysning
-    entities: ['light.tvlampa', 'light.golvlampa']
-
-  - platform: group
-    name: Skrivbord
-    entities: ['light.fonsterlampa', 'light.storlampa']
-
-  - platform: group
-    name: Hall
-    entities: ['light.hallampa_1', 'light.hallampa_2', 'light.hallampa_3']
-
-  - platform: group
-    name: Badrum
-    entities: ['light.vask_vanster', 'light.vask_hoger']
-
-  - platform: group
-    name: Taklampor
-    entities: ['light.spot_1', 'light.spot_2']
-
-  - platform: group
-    name: Sänglampor
-    entities: ['light.mattias', 'light.sanja']
-
-  - platform: group
-    name: all_lights_exclude_hall
+    name: Woonkamer
     entities:
-      ['light.belysning', 'light.datorlampa', 'light.taklampor', 'light.skrivbord', 
-      'light.badrum', 'light.kladkammare_2', 'light.sanglampor']
+      - light.woonkamer_tv
+      - light.woonkamer_secretaire
 
-ios:
-  push:
-    categories:
-      - name: Home Assistant
-        identifier: ios_hass
-        actions:
-          - identifier: start_watchtower
-            title: Uppdatera
+  - platform: group
+    name: Werkkamer
+    entities:
+      - light.werkkamer_plafond
+
+  - platform: group
+    name: Slaapkamer
+    entities:
+      - light.slaapkamer_bob
+      - light.slaapkamer_kimberly
+
+pi_hole:
+  - host: !secret pi_hole_host
 
 homekit:
   ip_address: !secret homekit_ip_address
-  auto_start: false
   filter:
-    include_entities: &include_entities
-      ['fan.studio_wemo', 'switch.wemo_monitors', 'switch.computer_imac', 'media_player.sony_bravia', 'switch.air_purifier', 'lock.dator', 
-      'media_player.samsung', 'switch.playstation_4', 'input_boolean.motion_hall', 'fan.sovrum_anslut', 'script.samsung_tv_energy_saving', 
-      'input_boolean.motion_garderob', 'input_boolean.motion_badrum', 'script.home_arrive', 'script.home_leave', 'vacuum.xiaomi_vacuum_cleaner', 
-      'person.mattias', 'person.sanja']
-  entity_config:
-    fan.studio_wemo:
-      name: Fläkt 2
-    fan.sovrum_anslut:
-      name: Fläkt
-    switch.air_purifier:
-      name: Luftrenare
-    script.samsung_tv_energy_saving:
-      name: Eko
-    switch.wemo_monitors:
-      name: Monitorer
-      type: outlet
-    switch.computer_imac:
-      name: Dator
-    media_player.sony_bravia:
-      name: Tv
-      feature_list:
-        - feature: on_off
-    media_player.samsung:
-      name: Samsung Tv
-      feature_list:
-        - feature: on_off
-    switch.playstation_4:
-      name: Playstation
-    script.home_arrive:
-      name: Hemma
-    script.home_leave:
-      name: Stäng allt
-    vacuum.xiaomi_vacuum_cleaner:
-      name: Morty
-
-cloud:
-  google_actions:
-    filter:
-      include_entities: *include_entities
-    entity_config:
-      fan.studio_wemo:
-        name: Fläkt 2
-        aliases: ['Fläkt', 'Fläkten']
-        room: Studio
-      fan.sovrum_anslut:
-        name: Fläkt
-        aliases: ['Fläkt', 'Fläkten']
-        room: Sovrum
-      switch.air_purifier:
-        name: Luftrenare
-        room: Sovrum
-      script.samsung_tv_energy_saving:
-        name: Eko
-        aliases: ['Eko', 'Eko-läge', 'Samsung eko']
-        room: Sovrum
-      switch.wemo_monitors:
-        name: Monitorer
-        room: Studio
-      switch.computer_imac:
-        name: Dator
-        aliases: ['Dator', 'Datorn', 'Datan', 'iMac']
-        room: Studio
-      media_player.sony_bravia:
-        name: Tv
-        aliases:
-          ['Tv', 'Sony Tv', 'Sony Bravia Tv', 'Bravia Tv', 
-          'Vardagsrums Tv', 'Vardagsrums Teven', 'Tv Vardagsrum']
-        room: Vardagsrum
-      media_player.samsung:
-        name: Samsung Tv
-        aliases: ['Samsung Tv', 'Sovrums Tv', 'Sovrums Teven', 'Tv Sovrum']
-        room: Sovrum
-      switch.playstation_4:
-        name: Playstation
-        aliases: ['Playstation', 'PS4', 'Playstation 4']
-        room: Vardagsrum
-      script.home_arrive:
-        name: Hemma
-        aliases: ['Hemma', 'Auto hemma', 'Jag är hemma']
-        room: Hall
-      script.home_leave:
-        name: Stäng allt
-        aliases: ['Stäng allt', 'Auto Stäng allt']
-        room: Hall
-      vacuum.xiaomi_vacuum_cleaner:
-        name: Morty
-        room: Vardagsrum
+    include_domains:
+      - light
+      - scene

@@ -34,7 +34,7 @@ button_card_templates: !include button_card_templates.yaml
 #                                                                        #
 ##########################################################################
 
-title: Hemma
+title: Home
 views:
   - panel: true
     path: default_view
